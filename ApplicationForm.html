@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        /* Add your CSS styling here if needed */
+        body{
+            background-color: blanchedalmond;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Customer Survey Form</h1>
+    <form id="surveyForm" onsubmit="return false;" style="text-align: center;">
+        
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required>
+        <br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required>
+        <br><br>
+
+        <label for="dob" style="margin-left: -50px;">Date of Birth:</label>
+        <input type="date" id="dob" required>
+        <br><br>
+
+        <label for="country" style="margin-left: -125px;">Country:</label>
+        <select id="country" required>
+            <option value="INDIA">INDIA</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+            <option value="OTHER">OTHER</option>
+            <!-- Add more countries as needed -->
+        </select>
+        <br><br>
+
+        <label style="margin-left: -13px;">Gender:</label>
+        <input type="checkbox" id="male" value="Male" name="gender"> Male
+        <input type="checkbox" id="female" value="Female" name="gender"> Female
+        <input type="checkbox" id="other" value="Other" name="gender"> Other
+        <br><br>
+
+        <label for="profession" style="margin-left: -10px;">Profession:</label>
+        <input type="text" id="profession" required>
+        <br><br>
+
+        <label for="email" style="margin-left: -42px;">Email:</label>
+        <input type="email" id="email" required>
+        <br><br>
+
+        <label for="mobile" style="margin-left: 18px;">Mobile Number:</label>
+        <input type="tel" id="mobile" required>
+        <br><br>
+
+        <input type="submit" value="Submit" onclick="submitForm()">
+        <input type="button" value="Reset" onclick="resetForm()">
+    </form>
+
+    <div id="popup" style="display: none;">
+        <h2 style="text-align: center;">Submitted Values:</h2>
+        <p id="popup-content" style="text-align: center;"></p>
+        <button onclick="closePopup()" >Close</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const dob = document.getElementById("dob").value;
+            const country = document.getElementById("country").value;
+
+            const genders = document.querySelectorAll("input[name='gender']:checked");
+            const selectedGenders = [];
+            genders.forEach(gender => {
+                selectedGenders.push(gender.value);
+            });
+
+            const profession = document.getElementById("profession").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+
+            const popupContent = `
+                First Name: ${firstName}<br>
+                Last Name: ${lastName}<br>
+                Date of Birth: ${dob}<br>
+                Country: ${country}<br>
+                Gender: ${selectedGenders.join(", ")}<br>
+                Profession: ${profession}<br>
+                Email: ${email}<br>
+                Mobile Number: ${mobile}
+            `;
+
+            document.getElementById("popup-content").innerHTML = popupContent;
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            resetForm();
+        }
+    </script>
+</body>
+</html>
